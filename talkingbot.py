@@ -1,36 +1,44 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+# References
+# ==========
+# https://www.digitalocean.com/community/tutorials/how-to-create-a-twitter-app
+# https://stackoverflow.com/questions/1773805/how-can-i-parse-a-yaml-file-in-python
+
+
 import yaml
 import tweepy
 
 
 class Twitter:
     def __init__(self):
-        self.load_credentials()
-        self.get_api()
+        configuration = self.load_credentials()
+
+        self.access_token_secret = configuration['twitter']['access_token_secret']
+        self.access_token = configuration['twitter']['access_token']
+        self.consumer_secret = configuration['twitter']['consumer_secret']
+        self.consumer_key = configuration['twitter']['consumer_key']
+
+        self.api = self.get_api()
 
     def load_credentials(self):
         with open("conf.yml", 'r') as stream:
             try:
-                configuration = yaml.load(stream)
-                self.consumer_key = configuration['twitter']['consumer_key']
-                self.consumer_secret = configuration['twitter']['consumer_secret']
-                self.access_token = configuration['twitter']['access_token']
-                self.access_token_secret = configuration['twitter']['access_token_secret']
+                return yaml.load(stream)
             except yaml.YAMLError as exc:
                 print(exc)
 
     def get_api(self):
         auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
         auth.set_access_token(self.access_token, self.access_token_secret)
-        self.api = tweepy.API(auth)
+        return tweepy.API(auth)
 
     def say(self, aTweet):
         self.api.update_status(status=aTweet)
 
 
 # Write a tweet to push to our Twitter account
-tweet = 'What about a mention @talkingbit1'
+tweet = 'Just cleaning!'
 twitter = Twitter()
 twitter.say(tweet)
