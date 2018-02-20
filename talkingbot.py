@@ -8,7 +8,7 @@ import tweepy
 class Twitter:
     def __init__(self):
         self.load_credentials()
-        self.api = self.get_api()
+        self.get_api()
 
     def load_credentials(self):
         with open("conf.yml", 'r') as stream:
@@ -24,13 +24,13 @@ class Twitter:
     def get_api(self):
         auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
         auth.set_access_token(self.access_token, self.access_token_secret)
-        return tweepy.API(auth)
+        self.api = tweepy.API(auth)
 
     def say(self, aTweet):
         self.api.update_status(status=aTweet)
 
 
 # Write a tweet to push to our Twitter account
-tweet = 'This has a link http://franiglesias.github.io'
+tweet = 'What about a mention @talkingbit1'
 twitter = Twitter()
 twitter.say(tweet)
