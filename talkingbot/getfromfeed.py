@@ -23,6 +23,6 @@ class GetFromFeed:
 
     @staticmethod
     def ensure_links_to_first_article_in_series(entry):
-        entry.link = re.sub('-\d+/$', '-1', entry.link)
+        entry.link = re.sub('\d+$', '1', entry.link)
         return entry
 

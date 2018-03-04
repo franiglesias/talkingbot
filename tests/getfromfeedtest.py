@@ -47,13 +47,13 @@ class GetFromFeedTest(TestCase):
         self.assertEquals('Title link', get_from_feed.get_message())
 
     def test_if_we_get_a_link_to_article_in_series_always_return_the_first(self):
-        entry = self.prepare_entry_with_title_and_link('Title', 'link-1')
+        entry = self.prepare_entry_with_title_and_link('Title', 'link-3')
 
         reader = FeedReaderStub('url')
         reader.add_entry(entry)
 
         get_from_feed = GetFromFeed(reader)
-        self.assertEquals('Title link-2', get_from_feed.get_message())
+        self.assertEquals('Title link-1', get_from_feed.get_message())
 
     def prepare_entry_with_title_and_link(self, title, link):
         entry = Entry()
