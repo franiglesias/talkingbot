@@ -17,3 +17,6 @@ class Twitter:
 
     def get_api(self):
         return self.api
+
+    def update_status(self, message):
+        self.get_api().update_status(status=message)

@@ -12,6 +12,7 @@ from tweepy import TweepError
 from configuration import Configuration
 from twitter import Twitter
 from getfromfeed import GetFromFeed
+from feedreader import FeedReader
 
 
 class TalkingBot:
@@ -20,14 +21,14 @@ class TalkingBot:
         self.source = source
 
     def say(self):
-        self.twitter.get_api().update_status(status=self.source.get_message())
+        self.twitter.update_status(self.source.get_message())
 
 
 if __name__ == "__main__":
     try:
         bot = TalkingBot(
             Twitter(Configuration('conf.yml')),
-            GetFromFeed('https://franiglesias.github.io/feed.xml')
+            GetFromFeed(FeedReader('https://franiglesias.github.io/feed.xml'))
         )
         bot.say()
     except TweepError as something_wrong:
