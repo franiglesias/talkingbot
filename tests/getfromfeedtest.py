@@ -1,6 +1,4 @@
-import unittest
-from unittest import TestCase
-
+from unittest import TestCase, main
 
 from talkingbot.feedreader import FeedReader
 from talkingbot.getfromfeed import GetFromFeed
@@ -61,5 +59,6 @@ class GetFromFeedTest(TestCase):
         entry.link = link
         return entry
 
+
 if __name__ == "__main__":
-    unittest.main()
+    main()

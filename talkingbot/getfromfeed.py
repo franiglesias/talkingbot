@@ -1,15 +1,19 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import re
 
 # References
 # ==========
 # http://www.pythonforbeginners.com/feedparser/using-feedparser-in-python
 # https://stackoverflow.com/questions/9942594/unicodeencodeerror-ascii-codec-cant-encode-character-u-xa0-in-position-20
 
+import re
 
-class GetFromFeed:
-    def __init__(self, reader):
+from getfromsource import GetFromSource
+
+
+class GetFromFeed(GetFromSource):
+    def __init__(self, reader, **kwargs):
+        super(GetFromFeed, self).__init__(**kwargs)
         self.reader = reader
 
     def get_message(self):
@@ -25,4 +29,3 @@ class GetFromFeed:
     def ensure_links_to_first_article_in_series(entry):
         entry.link = re.sub('\d+$', '1', entry.link)
         return entry
-
